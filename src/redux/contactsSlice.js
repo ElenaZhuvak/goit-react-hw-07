@@ -28,6 +28,8 @@ const contactsSlice = createSlice({
             state.items = state.items.filter(item => item.id !== payload.id)
         })
 
+        .addMatcher(isAnyOf(fetchContacts.fulfilled, addContact.fulfilled, deleteContact.fulfilled), (state) => {
+            state.isLoading = false
 
         .addMatcher(isAnyOf(fetchContacts.pending, addContact.pending, deleteContact.pending), (state) => {
             state.isError = false
@@ -37,8 +39,6 @@ const contactsSlice = createSlice({
             state.isError = false
             state.isLoading = false
         })
-        .addMatcher(isAnyOf(fetchContacts.fulfilled, addContact.fulfilled, deleteContact.fulfilled), (state) => {
-            state.isLoading = false
         })
     } 
 })
